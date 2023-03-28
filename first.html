@@ -1,0 +1,107 @@
+<!-- 待改进的分片上传 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- <input type="file"> -->
+    <div>
+        选择文件：<input type="file" id="inputFile" />
+        <p id="realFileType"></p>
+    </div>
+
+    <ul><li id="deviceId">hhhhhhh</li></ul>
+
+
+    <script>
+
+
+
+        var file = document.querySelector('input[type=file]').files[0];
+        var ipt = document.querySelector('input')
+        ipt.addEventListener('change', function () {
+            // var FR = new FileReader()
+            // FR.onload = function (e) {
+            //     let af = e.target.result
+            //         , view = new DataView(af)
+            //         , first4Byte = view.getUint32(0, false)
+            //         , hexValue = Number(first4Byte).toString(16);
+
+            //     switch (hexValue) {
+            //         case 'FFD8FFE0':
+            //         case 'FFD8FFE1':
+            //         case 'FFD8FFE2':
+            //         case 'FFD8FFE3':
+            //             console.log('is JPEG/JPG');
+            //             break;
+            //         default:
+            //             console.log('undefined');
+            //             break;
+            //     }
+            // }
+            // FR.readAsArrayBuffer(file)
+                const preview = document.querySelector('img');
+                const file = document.querySelector('input[type=file]').files[0];
+                console.log(file);
+                const reader = new FileReader();
+                
+                // 拿到文件的base字符串
+                // reader.onload = () => {
+                //     console.log(reader.result);
+                // }
+                // reader.readAsDataURL(file)
+                // console.log(reader);
+
+
+                // 拿到文件二进制
+                // reader.readAsArrayBuffer(file.slice(0, 4));
+                // reader.onloadend = function (e) {
+                //     console.log(reader.result);
+                //     var arr = (new Uint8Array(reader.result)).subarray(0, 4)
+                //     console.log(arr.length);
+
+                // }
+
+        })
+
+        // function readBuffer(file, start = 0, end = 2) {
+        //     return new Promise((resolve, reject) => {
+        //         const reader = new FileReader();
+        //         reader.onload = () => {
+        //             resolve(reader.result);
+        //         };
+        //         reader.onerror = reject;
+        //         reader.readAsArrayBuffer(file.slice(start, end));
+        //     });
+        // }
+
+        // function check(headers) {
+        //     return (buffers, options = { offset: 0 }) =>
+        //         headers.every(
+        //             (header, index) => header === buffers[options.offset + index]
+        //         );
+        // }
+
+        // const isPNG = check([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]); // PNG图片对应的魔数
+        // const realFileElement = document.querySelector("#realFileType");
+
+        // async function handleChange(event) {
+        //     const file = event.target.files[0];
+        //     const buffers = await readBuffer(file, 0, 8);
+        //     const uint8Array = new Uint8Array(buffers);
+        //     realFileElement.innerText = `${file.name}文件的类型是：${isPNG(uint8Array) ? "image/png" : file.type
+        //         }`;
+        //     console.log(file, buffers, uint8Array);
+        // }
+
+
+    </script>
+</body>
+
+</html>

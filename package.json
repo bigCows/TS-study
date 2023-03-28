@@ -1,0 +1,20 @@
+{
+  "name": "ts-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigCows/ts-study.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bigCows/ts-study/issues"
+  },
+  "homepage": "https://github.com/bigCows/ts-study#readme"
+}
