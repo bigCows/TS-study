@@ -46,3 +46,5 @@ git stash 贮藏当前改动   在需要更新代码而不想因为当前较少�
 git stash list 查看本地贮藏的所有内容
 
 git stash apply [-- index] 根据贮藏的索引选择应用哪条贮藏，如果修改文件相同，会出现冲突，需要手动解决
+
+nvm list available 查看所有可安装的node版本
