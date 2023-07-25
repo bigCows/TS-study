@@ -35,3 +35,25 @@
 //     console.log(data);
 //   }
 // )()
+
+// if(window.Worker) {
+
+//     const worker = new Worker('worker.js')
+//     worker.postMessage('Hello World');
+//     console.log(worker, 'webWorker');
+// }
+
+function A() {
+    this.name = 'a';this.data = [1,2,3];
+}
+
+function B() {
+    return A.call(this)
+}
+// B.prototype = new A();
+const b1 = new B();
+const b2 = new B();
+b1.name = 'b1';
+b1.data.push(4);
+console.info(b2.name);
+console.info(b2.data);

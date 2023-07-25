@@ -48,3 +48,7 @@ git stash list 查看本地贮藏的所有内容
 git stash apply [-- index] 根据贮藏的索引选择应用哪条贮藏，如果修改文件相同，会出现冲突，需要手动解决
 
 nvm list available 查看所有可安装的node版本
+
+pnpm view create-vue versions 查看vue所有可安装的版本
+
+pnpm create vue@版本号  创建vue项目

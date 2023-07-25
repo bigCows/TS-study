@@ -247,13 +247,12 @@ let obj:{
 // interface 定义对象类型，类型名推荐使用I开头
 // interface和type的区别
 // 同：都可以给对象定义类型
-// 异：interface只能自定义对象类型，type可以为任意数据类型指定类型别名
+// 异：interface主要用于定义对象类型，type可以为任意数据类型指定类型别名
 
 
 // 类型推论类型
 let a = '1' // 类型推论将a的类型推断为string
 const b = 2 // 类型推论将b的类型推断为数字2
-
 // 字面量类型--固定的值
 type directive = 'aa' | 22
 let c: directive = 'aa'
@@ -266,6 +265,7 @@ let isA = <unknown> '2' // 将isA的string类型强制断言为unknown类型，�
 // typeof出现在类型注解的后面，所处环境就是ts，typeof只能用来查询变量或属性的类型，无法查询其他形式(比如函数调用者类型)
 let abc = {
     x:2,
+
     y:3
 }
 type CustomObj = {
@@ -306,24 +306,156 @@ let fun3:customFn2 = (val) => {
 fun3<string>('','')
 
 
-// 联合类型的继承中，子只要有父其中一个类型即可
-// 对象类型继承中，子需要有父的所有类型才能继承
+
+// 联合类型的继承中，子只要有父其中一个类型即可，类型多为父类型
+// 对象类型继承中，子需要有父的所有类型才能继承，类型多为子类型
 type PARENT = {name: string, age: number}
-type SON = {name: string,age:number,sex:string}
+type SON = {name: string,age:number,sex:string} 
 type T = SON extends PARENT ? true : false
 type F = PARENT extends SON  ? true : false
 
 type SONTYPE = string
 type PARENTTYPE = string | number
 
-const F1:SONTYPE extends PARENTTYPE ? string : boolean 
-const T1:PARENTTYPE extends SONTYPE ? string : boolean 
+// const F1:SONTYPE extends PARENTTYPE ? string : boolean 
+// const T1:PARENTTYPE extends SONTYPE ? string : boolean 
 
+
+// B为A的子类型，因为A的所有类型，B都有
 type SubType<A, B> = B extends A ? true : false;
 
 type Foo = { x: number };
 type Bar = { x: number, y: string };
 
-const isSubType: SubType<Foo, Bar> = true; // Foo 是 Bar 的子类型
+// const isSubType: SubType<Foo, Bar>  
+
+type any1<A,B> = B extends A ? true : false
+
+// const any2: any1<any,number>
+
+const unk:unknown = 1
+
+
+const arys:[string,number] = [ '1',2] 
+arys.push(111)
+console.log(arys,'arys');
+
+class father {
+    name: string
+    constructor(name:string) {
+        this.name = name
+    }
+    say() {
+        console.log('father');
+        
+    }
+}
+
+
+// 继承必须使用extends，子类也必须调用super,否则报错
+class son extends father {
+    age: number
+    constructor(name:string,age:number) {
+        super(name)
+        this.age = age
+    }
+}
+
+const f = new father('fahter')
+console.log(f);
+const s = new son('sons',12)
+console.log(s);
+
+type genric<T> = (x:T) => T
+interface genric2<T> {
+    fn(x:T):T
+}
+
+interface person {
+    name: string
+    age: number
+}
+
+// Partial将目标类型转化为可选类型
+type person2 = Partial<person>
+
+// 泛型第一个参数为key,第二个参数为类型
+type person3 = Record<'name' | 'age' | 3,string | number>
+
+// 从目标类型中，选取指定属性。
+type person4 = Pick<person, 'age'>
+
+// 从目标类型中排除指定属性
+type person5 = Omit<person, 'name'>
+
+// 将目标类型中的所有属性变为只读
+type person6 = Readonly<person>
+
+// 从第一个参数中排除可以赋值给第二个参数的类型，返回一个新的类型定义
+type person7 = Exclude<string | number | boolean, string>
+
+// 从第一个参数中提取可以赋值给第二个参数的类型，返回一个新的类型定义
+type person8 = Extract<string | number | boolean, string>
+
+// 排除目标类型中的null和undefined类型
+type person9 = NonNullable<string | number | boolean | null | undefined>
+
+// 将目标类型中的所有属性变为必填属性
+type person10 = Required<person>
+
+// 获取函数参数类型
+type person11 = Parameters<genric<string>>
+
+// 获取函数返回值类型
+type person12 = ReturnType<() => number>
+
+// 获取构造函数参数类型
+type person13 = ConstructorParameters<typeof father>
+
+// 获取构造函数实例类型
+type person14 = InstanceType<typeof father>
+
+// 提取目标函数的this的类型，如果没有this参数，则为unknown
+type person15 = ThisParameterType<genric2<string>>
+
+interface person16 extends person3 {
+
+}
+
+// q:A2为什么是2，A1为什么是1   
+type A2 = 'x' | 'y' extends 'x' ? 1 : 2;
+type A1 = 'x' extends 'x' ? 1 : 2;
+
+{
+    interface IdLabel {
+        id: number /* some fields */;
+      }
+      interface NameLabel {
+        name: string /* other fields */;
+      }
+    
+      type NameOrId<T extends number | string> = T extends number
+      ? IdLabel
+      : NameLabel;
+    
+      function createLabel<T extends number | string>(idOrName: T): NameOrId<T> {
+        throw "unimplemented";
+      }
+       
+      let a = createLabel("typescript");
+         
+       
+      let b = createLabel(2.8);
+         
+      let c = createLabel(Math.random() ? "hello" : 42);
+}
+
+{
+    type unite = 'x' | 'y' | string | 1 
+}
+
+// 函数签名：函数输入(参数)与输出(返回值)
+// 索引签名：对象的键类型和值类型
+
 
 export {}   

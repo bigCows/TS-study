@@ -204,7 +204,7 @@ const str2 = '3443' // 值类型
 let str3 = '123' as const // 将宽泛类型转为值类型
 let arr4 = [1,2,str,str1] as const  // 1,2,string,555
 
-// 元组对于类型的数量和顺序都有限制
+// 元组对于类型的数量和顺序都有限制，添加数据可使用push方法，直接添加会报错
 let ar1:[string, number]
 ar1 = ['qwe',213]
 // ar1 = [123,'q3we']
@@ -322,7 +322,7 @@ abstract  class animal {
 
 // 抽象类
 class dog extends animal {
-    // 抽象方法和抽象属性都必须继承，作为抽象类
+    // 抽象方法和抽象属性都必须继承，作为抽象类,子类必须实现抽象方法
     public  name: string = 'xxx' 
     sayName() {
         return `${this.name} + dog`
@@ -343,7 +343,7 @@ console.log(Dogs.sayName());
 
 // let g = new animal()
 
-// 多态 
+// 多态 :父类定义一个方法，被子类重写
 // f在定义时是animal类型，具体是dog还是cats要new了才知道
 // let f: animal;
 // f = new dog('小鱼')

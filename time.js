@@ -72,3 +72,26 @@ var arr = [ {
 
 arr.sort(iscompare(false))
 console.log(arr,'arrrrr');
+
+
+var qname = 'a'
+const obj = {
+qname:'b',
+updateName1:()=> {
+this.qname = 'c'
+return function () {
+this.qname = 'd'
+    };
+},
+updateName2(){
+this.qname = 'e';
+return () => {
+this.qname = 'f';
+        }
+    }
+}
+
+obj.updateName1().call(this)
+obj.updateName2().call(this);
+console.info(qname);
+console.info(obj.qname);

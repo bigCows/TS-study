@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        if(window.Worker) {
+          const worker = new Worker('./worker.js',{name:'xWorker'})
+          console.log(worker, 'webWorker');
+        // 给worker线程发送信息
+          worker.postMessage('Hello World');
+        // 接收worker线程返回的信息
+          worker.onmessage = function(e) {
+            console.log(e.data,'接收子线程返回数据');
+            e.data && worker.terminate();
+          }
+          worker.onerror = function(e) {
+            console.log(e,'错误');
+          }
+          
+        }
+    </script>
+</body>
+</html>
