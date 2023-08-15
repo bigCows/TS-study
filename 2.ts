@@ -165,48 +165,48 @@ console.log(
 
 // //  let fnn1: fnn = 
 
-// // 接口和class的兼容性都是参数少的兼容参数多的 多的可以赋值给少的
+// // 接口和class的兼容性都是参数少的兼容参数多的
 
 // // 参数个数影响(参数类型为原始类型)：函数参数多的兼容函数参数少
-// type F1 = (x:string)=> void
-// type F2 = (y:string,x:string) => void
+type F1 = (x:string)=> void
+type F2 = (y:string,x:string) => void
 
-// let Fn1!: F1
-// let Fn2: F2 
+let Fn1!: F1
+let Fn2: F2 
 
-// Fn2 = Fn1
+Fn2 = Fn1
 
 // // 1.函数参数类型为原始类型(string,number,boolean)时，参数类型一致即可兼容
-// // 2.函数参数类型为对象类型时，对象参数少的兼容参数多的(多的赋值少的)
-// interface fn2_1 {x:string,y:string}
-// interface fn3_1 {y:string}
-// type fn2 = (x: fn2_1) =>void
-// type fn3 = (x:fn3_1) => void 
-// let fn2_11!: fn2
-// let fn3_11!: fn3
+// // 2.函数参数类型为对象类型时，对象参数少的兼容参数多的
+interface fn2_1 {x:string,y:string}
+interface fn3_1 {y:string}
+type fn2 = (x: fn2_1) =>void
+type fn3 = (x:fn3_1) => void 
+let fn2_11!: fn2
+let fn3_11!: fn3
 
-//     fn2_11 = fn3_11
+    fn2_11 = fn3_11
 
 // // 函数返回值兼容性
-// type fn_1 = () => string
-// type fn_2 =() => string
+type fn_1 = () => string
+type fn_2 =() => string
 
-// let fn_11:fn_1
-// let fn_112!:fn_2
+let fn_11:fn_1
+let fn_112!:fn_2
 
 // // 返回值为原始类型，类型相同即可兼容
-// fn_11 = fn_112
-// fn_112 = fn_11
+fn_11 = fn_112
+fn_112 = fn_11
 
-// // 返回值为对象类型，参数少的兼容多的(多的可赋值少的)
+// // 返回值为对象类型，参数多的兼容少的(多的可赋值少的)
 
-// type point2D = () => {x:string}
-// type point3D = () => {x:string,y:string}
+type point2D = () => {x:string}
+type point3D = () => {x:string,y:string}
 
-// let p2d: point2D
-// let p3d!:point3D
+let p2d: point2D
+let p3d!:point3D
 
-// p2d = p3d
+p2d = p3d
 
 
 // 泛型
@@ -235,7 +235,7 @@ let objFn: CustomFn = () => {
 objFn(1,'2',{})
 
 
-// 定义对象属性返回值
+// 定义对象属性返回值   
 let obj:{
     run:() => number
 } = {
@@ -244,7 +244,7 @@ let obj:{
     }
 }
 
-// interface 定义对象类型，类型名推荐使用I开头
+// interface
 // interface和type的区别
 // 同：都可以给对象定义类型
 // 异：interface主要用于定义对象类型，type可以为任意数据类型指定类型别名
@@ -259,7 +259,7 @@ let c: directive = 'aa'
 let d: directive = 22
 
 // <>断言
-let isA = <unknown> '2' // 将isA的string类型强制断言为unknown类型，在react的jsx中会报错
+let isA = (<unknown> '2') as number // 将isA的string类型强制断言为unknown类型
 
 // typeof
 // typeof出现在类型注解的后面，所处环境就是ts，typeof只能用来查询变量或属性的类型，无法查询其他形式(比如函数调用者类型)
@@ -307,18 +307,24 @@ fun3<string>('','')
 
 
 
-// 联合类型的继承中，子只要有父其中一个类型即可，类型多为父类型
-// 对象类型继承中，子需要有父的所有类型才能继承，类型多为子类型
-type PARENT = {name: string, age: number}
+
+// 对象类型继承中，子需要有父的所有类型才能继承
+type PARENT = {name: string, age: number,A?:string}
 type SON = {name: string,age:number,sex:string} 
+
 type T = SON extends PARENT ? true : false
 type F = PARENT extends SON  ? true : false
+let s:SON
+let p:PARENT
+p = s!
 
+
+// 联合类型的继承中，子只要有父其中一个类型即可
 type SONTYPE = string
 type PARENTTYPE = string | number
 
-// const F1:SONTYPE extends PARENTTYPE ? string : boolean 
-// const T1:PARENTTYPE extends SONTYPE ? string : boolean 
+const F1:SONTYPE extends PARENTTYPE ? string : boolean 
+const T1:PARENTTYPE extends SONTYPE ? string : boolean 
 
 
 // B为A的子类型，因为A的所有类型，B都有
@@ -327,11 +333,11 @@ type SubType<A, B> = B extends A ? true : false;
 type Foo = { x: number };
 type Bar = { x: number, y: string };
 
-// const isSubType: SubType<Foo, Bar>  
+const isSubType: SubType<Foo, Bar>  
 
 type any1<A,B> = B extends A ? true : false
 
-// const any2: any1<any,number>
+const any2: any1<any,number>
 
 const unk:unknown = 1
 
@@ -341,9 +347,9 @@ arys.push(111)
 console.log(arys,'arys');
 
 class father {
-    name: string
+    uname: string
     constructor(name:string) {
-        this.name = name
+        this.uname = name
     }
     say() {
         console.log('father');
@@ -374,6 +380,7 @@ interface genric2<T> {
 interface person {
     name: string
     age: number
+    address?: string
 }
 
 // Partial将目标类型转化为可选类型
@@ -391,10 +398,10 @@ type person5 = Omit<person, 'name'>
 // 将目标类型中的所有属性变为只读
 type person6 = Readonly<person>
 
-// 从第一个参数中排除可以赋值给第二个参数的类型，返回一个新的类型定义
+// 从第一个参数中排除可以赋值给第二个参数的类型，返回被排除的类型
 type person7 = Exclude<string | number | boolean, string>
 
-// 从第一个参数中提取可以赋值给第二个参数的类型，返回一个新的类型定义
+// 从第一个参数中提取可以赋值给第二个参数的类型，返回被提取的类型
 type person8 = Extract<string | number | boolean, string>
 
 // 排除目标类型中的null和undefined类型
@@ -422,7 +429,8 @@ interface person16 extends person3 {
 
 }
 
-// q:A2为什么是2，A1为什么是1   
+// q:A2为什么是2，A1为什么是1?
+    
 type A2 = 'x' | 'y' extends 'x' ? 1 : 2;
 type A1 = 'x' extends 'x' ? 1 : 2;
 

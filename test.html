@@ -25,6 +25,16 @@
   
   <!-- 通过元素位置关系方法-->
   <script>
+    window.addEventListener('wheel', function(event) {
+      console.log(event);
+  if (event.deltaY > 0) {
+    // 向下滑动
+    console.log('向下滑动');
+  } else {
+    // 向上滑动
+    console.log('向上滑动');
+  }
+});
     // function isContain(dom) {
     //   // 获取可视窗口的盖度。
     //   const screenHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;

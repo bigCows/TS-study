@@ -28,7 +28,7 @@ git log -p 文件名  查看某个文件的更改记录
 
 git diff commitHash1 commitHash2 --stat 查看两次提交的差异
 
-git cherry-pick commitHash1..commitHash2 将这两次提交之间的所有提交都合并到当前分支 commitHash1必须早于commitHash2提交
+git cherry-pick commitHash1..commitHash2 将这两次提交之间的所有提交都合并到当前分支 commitHash1必须早于commitHash2提交,..不能省略，表示合并区间，省略表示合并单个提交
 
 git cherry-pick commitHash 将某次提交合并到当前分支  参考：https://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html，https://juejin.cn/post/6914106535173947399，https://segmentfault.com/a/1190000039339941
 
