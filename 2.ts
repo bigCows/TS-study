@@ -398,7 +398,7 @@ type person5 = Omit<person, 'name'>
 // 将目标类型中的所有属性变为只读
 type person6 = Readonly<person>
 
-// 从第一个参数中排除可以赋值给第二个参数的类型，返回被排除的类型
+// 从第一个参数中排除不能赋值给第二个参数的类型，返回被排除的类型
 type person7 = Exclude<string | number | boolean, string>
 
 // 从第一个参数中提取可以赋值给第二个参数的类型，返回被提取的类型
